@@ -10,6 +10,7 @@ bool checkMiddleAndBack(void);
 
 int main(int argc, char **argv)
 {
+  bool achou = false;
   int total_times = read_args(argc, argv);
   startBox();
   int i = 0;
@@ -20,15 +21,13 @@ int main(int argc, char **argv)
     if (checkMiddleAndBack())
     {
       printf("achou em %d tentativas\n", i + 1);
+      achou = true;
       break;
     }
     moveCat();
   }
 
-  if (i > 6)
-    return 1;
-
-  return 0;
+  return !achou;
 }
 
 int read_args(int argc, char **argv)
