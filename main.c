@@ -6,21 +6,27 @@
 int read_args(int argc, char **argv);
 void checkAllBoxes(void);
 bool checkMoving(void);
+bool checkMiddleAndBack(void);
 
 int main(int argc, char **argv)
 {
   int total_times = read_args(argc, argv);
   startBox();
-  for (int i = 0; i < total_times; i++)
+  int i = 0;
+  for (; i < total_times; i++)
   {
     // checkAllBoxes();
-    if (checkMoving())
+    // if (checkMoving())
+    if (checkMiddleAndBack())
     {
-      printf("achou %d\n", i);
+      printf("achou em %d tentativas\n", i + 1);
       break;
     }
     moveCat();
   }
+
+  if (i > 6)
+    return 1;
 
   return 0;
 }
@@ -58,9 +64,32 @@ void checkAllBoxes(void)
 bool checkMoving(void)
 {
   static int currentBox = 0;
-  printf("currentBox: %d\n", currentBox);
+  // printf("currentBox: %d\n", currentBox);
   if (isCatInBox(currentBox))
     return true;
   currentBox += 1;
+  return false;
+}
+
+bool checkMiddleAndBack(void)
+{
+  // começa da segunda, vai até a penúltima, checa ela 2 vezes e depois volta
+  static int currentBox = 1;
+  static bool back = false;
+  printf("currentBox: %d\n", currentBox);
+  if (isCatInBox(currentBox))
+  {
+    printf("gato achado na currentBox: %d\n", currentBox);
+    return true;
+  }
+  if (currentBox == NUMBER_OF_BOXES - 2 && !back)
+  {
+    back = true;
+    return false;
+  }
+  if (back)
+    currentBox -= 1;
+  else
+    currentBox += 1;
   return false;
 }

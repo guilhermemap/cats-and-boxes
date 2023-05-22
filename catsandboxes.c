@@ -26,12 +26,22 @@ void startBox(void)
 
 bool isCatInBox(int guess)
 {
-  // printf("guess: %d, box: %d\n", guess, box);
+  printf("guess: %d, box: %d\n", guess, box);
   return guess == box;
 }
 
 void moveCat(void)
 {
+  if (box == 0)
+  {
+    box = 1;
+    return;
+  }
+  if (box == NUMBER_OF_BOXES - 1)
+  {
+    box -= 1;
+    return;
+  }
   startsrand();
   int right_left = rand() % 2 == 0;
   int step = 0;
@@ -43,7 +53,5 @@ void moveCat(void)
   {
     step = -1;
   }
-  box = (box + step) % NUMBER_OF_BOXES;
-  if (box < 0)
-    box = NUMBER_OF_BOXES - 1;
+  box += step;
 }
