@@ -36,11 +36,13 @@ CFLAGS  = -std=c99 \
 	  -Wwrite-strings \
 	 #-Wpadded 
 
-.PHONY : clean
+.PHONY : clean teste
 
 ALL : main.c catsandboxes.o
 	$(CC) $(CFLAGS)  $^
 
+teste : test.sh main.c
+	./test.sh 100
 
 clean : 
 	$(RM) *.o *.out
