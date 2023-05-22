@@ -12,7 +12,7 @@ for _ in $(seq "$MAX")
 do  
   if ! ./a.out > /dev/null
   then
-    ERRO+=1
+    ((ERRO+=1))
     echo "erro..."
   fi
 done
