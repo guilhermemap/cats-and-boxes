@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 static int box = -1;
 static void startsrand(void);
@@ -11,7 +13,11 @@ static void startsrand(void)
   // Initialization, should only be called once.
   if (box == -1)
   {
-    srand((unsigned int)time(NULL));
+    // unsigned int t = (unsigned int)time(NULL); // se programa é chamado num script num loop, pode ficar igual
+    unsigned int t = (unsigned int)getpid(); // força cada chamada a ter um t diferente ao chamar por script
+    // printf("srand: %d\n", t);
+
+    srand(t);
   }
 }
 
@@ -26,7 +32,7 @@ void startBox(void)
 
 bool isCatInBox(int guess)
 {
-  printf("guess: %d, box: %d\n", guess, box);
+  // printf("guess: %d, box: %d\n", guess, box);
   return guess == box;
 }
 
