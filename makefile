@@ -36,11 +36,11 @@ CFLAGS  = -std=c99 \
 	  -Wwrite-strings \
 	 #-Wpadded 
 
+.PHONY : clean
+
 ALL : main.c catsandboxes.o
 	$(CC) $(CFLAGS)  $^
 
-catsandboxes.o : catsandboxes.c
-	$(CC) -c $(CFLAGS) -o $@ $<
 
 clean : 
 	$(RM) *.o *.out
